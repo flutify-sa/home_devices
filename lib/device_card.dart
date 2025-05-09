@@ -79,7 +79,7 @@ class _DeviceCardState extends State<DeviceCard> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final Color primaryColor = _isDeviceOn ? widget.accentColor : Colors.grey.shade800;
-    final Color textColor = _isDeviceOn ? Colors.white : Colors.grey.shade400;
+    final Color textColor = _isDeviceOn ? Colors.white : Colors.white ;
     
     return AnimatedBuilder(
       animation: _animationController,
@@ -101,7 +101,7 @@ class _DeviceCardState extends State<DeviceCard> with SingleTickerProviderStateM
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      _isDeviceOn ? primaryColor : const Color(0xFF1E1E2A),
+                      _isDeviceOn ? primaryColor : Colors.purple,
                       _isDeviceOn ? primaryColor.withAlpha(204) : const Color(0xFF2D2D3A),
                     ],
                   ),
@@ -118,7 +118,7 @@ class _DeviceCardState extends State<DeviceCard> with SingleTickerProviderStateM
                   border: Border.all(
                     color: _isDeviceOn 
                         ? primaryColor.withAlpha(153) 
-                        : Colors.grey.withAlpha(26),
+                        : Colors.grey.withAlpha(126),
                     width: 1.5,
                   ),
                 ),
@@ -280,102 +280,27 @@ class _DeviceCardState extends State<DeviceCard> with SingleTickerProviderStateM
   Widget _buildToggleSwitch(Color primaryColor) {
     return GestureDetector(
       onTap: () => _toggleDevice(!_isDeviceOn),
-      child: Container(
-        height: 36,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          color: _isDeviceOn 
-              ? Colors.white.withAlpha(51) 
-              : Colors.grey.withAlpha(26),
-        ),
-        child: Stack(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 2.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Animated background
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              width: _isDeviceOn ? 120 : 0,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
-                color: _isDeviceOn 
-                    ? Colors.white.withAlpha(51) 
-                    : Colors.transparent,
+            Icon(
+              Icons.power_settings_new_rounded,
+              color: _isDeviceOn ? Colors.white : Colors.grey.shade400,
+              size: 16,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              _isDeviceOn ? 'TURN OFF' : 'TURN ON',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+                color: _isDeviceOn ? Colors.white : Colors.grey.shade400,
+                letterSpacing: 0.5,
               ),
-            ),
-            
-            // Button content
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.power_settings_new_rounded,
-                    color: _isDeviceOn ? Colors.white : Colors.grey.shade400,
-                    size: 16,
-                  ),
-                  SizedBox(width: 8),
-                  Text(
-                    _isDeviceOn ? 'TURN OFF' : 'TURN ON',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: _isDeviceOn ? Colors.white : Colors.grey.shade400,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-// Usage example:
-class DeviceControlPage extends StatelessWidget {
-  const DeviceControlPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFF121212),
-      appBar: AppBar(
-        title: const Text('Smart Devices'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          mainAxisSpacing: 16,
-          crossAxisSpacing: 16,
-          children: const [
-            DeviceCard(
-              deviceName: 'Living Room TV',
-              deviceIp: '192.168.1.101',
-              icon: Icons.tv,
-              accentColor: Colors.blueAccent,
-            ),
-            DeviceCard(
-              deviceName: 'Kitchen Lights',
-              deviceIp: '192.168.1.102',
-              icon: Icons.lightbulb,
-              accentColor: Colors.amberAccent,
-            ),
-            DeviceCard(
-              deviceName: 'Bedroom AC',
-              deviceIp: '192.168.1.103',
-              icon: Icons.ac_unit,
-              accentColor: Colors.cyanAccent,
-            ),
-            DeviceCard(
-              deviceName: 'Front Door',
-              deviceIp: '192.168.1.104',
-              icon: Icons.door_front_door,
-              accentColor: Colors.purpleAccent,
             ),
           ],
         ),
