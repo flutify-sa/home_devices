@@ -6,27 +6,44 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: Colors.grey.shade300,
-      appBar: AppBar(
-        title: const Text('Smart Devices'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            DeviceCard(
-              deviceName: 'Kettle',
-              deviceIp: '192.168.0.101',
+    return Stack(
+      children: [
+        // Background image
+        Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/purple.png'),
+              fit: BoxFit.cover,
             ),
-            SizedBox(width: 20),
-            DeviceCard(
-              deviceName: 'Bedside Lamp',
-              deviceIp: '192.168.0.102',
-            ),
-          ],
+          ),
         ),
-      ),
+        // Foreground content
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar: AppBar(foregroundColor: Colors.white,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            title: const Text('Smart Devices'),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                DeviceCard(
+                  deviceName: 'Kettle',
+                  deviceIp: '192.168.0.101',
+                ),
+                SizedBox(width: 20),
+                DeviceCard(
+                  deviceName: 'Bedside Lamp',
+                  deviceIp: '192.168.0.102',
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
